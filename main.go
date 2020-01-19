@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 )
 
 var tmpl = template.Must(template.ParseGlob("templates/*"))
@@ -18,6 +19,8 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fmt.Println("Hello Word")
+	tmdbKey := os.Getenv("TMDB_KEY")
+	fmt.Println(tmdbKey)
 	http.HandleFunc("/", helloHandler)
 	err := http.ListenAndServe(":8081", nil)
 	if err != nil {
